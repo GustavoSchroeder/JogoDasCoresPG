@@ -14,7 +14,9 @@ const int y = 32;
 using namespace std; //para dizer que não precisa colocar namespace na frente do objeto criado por ela
 
 Retangulo matrix[32][32];
-
+int but = 0;
+int xMouse;
+int yMouse;
 
 void drawRect(float x, float y, float weight, float height, int r, int g, int b) {
 	glColor3ub(r, g, b);
@@ -27,18 +29,19 @@ void drawRect(float x, float y, float weight, float height, int r, int g, int b)
 	glEnd();
 	//glutSwapBuffers();
 }
-
 void mouse(int button, int state, int x, int y){
+	but = button;
+	if(button != 0){
+		//matrix[x][y(tratar)].getcores
+	}
  //faz alguma coisa dado que algum botão (button) foi pressionado,
  //um estado do botão (state) e a posição de tela (x,y) que foi clicada.
  //Não é coordenada do OpenGL, portanto, devemos converter o
  //clique de tela em coordenada do OpenGL. Dica: y é invertido.
 }
-
 void reshape(int w, int h) {
 	glViewport(0, 0, w, h);
 }
-
 void display(void) {
 	//glutSwapBuffers();
 	float xx = 2;  //x inicial da tela
@@ -58,7 +61,6 @@ void display(void) {
 	glutSwapBuffers();
 	//glFlush();
 }
-
 void init(void) {
 	glClearColor(0.0, 0.0, 0.0, 0.0);
 	/*  initialize viewing values  */
@@ -66,7 +68,6 @@ void init(void) {
 	glLoadIdentity();
 	gluOrtho2D(-32, 32, -32, 32);
 	glViewport(350, 350, 500, 500); // define pos e tamanho janela
-	
 	srand((unsigned)time(NULL));
 	for (int i = 0; i < x; i++) {
 		for (int j = 0; j < y; j++) {
@@ -77,7 +78,6 @@ void init(void) {
 		}
 	}
 }
-
 int main(int argc, char** argv)
 {
 	// inicialização da GLUT
