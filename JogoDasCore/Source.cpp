@@ -11,7 +11,7 @@
 const int x = 32;
 const int y = 32;
 
-using namespace std; //para dizer que n„o precisa colocar namespace na frente do objeto criado por ela
+using namespace std; //para dizer que n√£o precisa colocar namespace na frente do objeto criado por ela
 
 Retangulo matrix[32][32];
 
@@ -28,6 +28,13 @@ void drawRect(float x, float y, float weight, float height, int r, int g, int b)
 	//glutSwapBuffers();
 }
 
+void mouse(int button, int state, int x, int y){
+ //faz alguma coisa dado que algum bot√£o (button) foi pressionado,
+ //um estado do bot√£o (state) e a posi√ß√£o de tela (x,y) que foi clicada.
+ //N√£o √© coordenada do OpenGL, portanto, devemos converter o
+ //clique de tela em coordenada do OpenGL. Dica: y √© invertido.
+}
+
 void reshape(int w, int h) {
 	glViewport(0, 0, w, h);
 }
@@ -38,7 +45,7 @@ void display(void) {
 	float yy = 2; // y inicial da tela
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	for (int i = 0; i < x; i++) {
-		xx = 0; // volta para o 0, para comeÁar nova linha
+		xx = 0; // volta para o 0, para come√ßar nova linha
 		for (int j = 0; j < y; j++){
 		int r = matrix[i][j].getRed();
 		int g = matrix[i][j].getGreen();
@@ -73,19 +80,19 @@ void init(void) {
 
 int main(int argc, char** argv)
 {
-	// inicializaÁ„o da GLUT
+	// inicializa√ß√£o da GLUT
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB);
 	glutInitWindowSize(800, 600);
 	glutInitWindowPosition(0, 0);
 	glutCreateWindow("Jogo das Cores");
 	init();
-	// funÁıes de call-back para a GLUT. Devemos passar o nome da funÁ„o que
-	// criamos para a GLUT. Os par‚metros estar no padr„o (veja slides)
-	glutDisplayFunc(display); // funÁ„o de desenho
+	// fun√ß√µes de call-back para a GLUT. Devemos passar o nome da fun√ß√£o que
+	// criamos para a GLUT. Os par√¢metros estar no padr√£o (veja slides)
+	glutDisplayFunc(display); // fun√ß√£o de desenho
 	glutReshapeFunc(reshape); // tratamento de redimensionamento da janela
-	//glutMouseFunc(mouse); // tratamento de mouse
-						  // inicializaÁıes do programa
+	glutMouseFunc(mouse); // tratamento de mouse
+						  // inicializa√ß√µes do programa
 	init();
 	// Inicia loop do programa, o main loop
 	glutMainLoop();
