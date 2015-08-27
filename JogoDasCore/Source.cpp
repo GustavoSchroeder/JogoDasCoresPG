@@ -11,12 +11,12 @@
 const int x = 32;
 const int y = 32;
 
+
 using namespace std; //para dizer que não precisa colocar namespace na frente do objeto criado por ela
 
 Retangulo matrix[32][32];
+int round = 3;
 int but = 0;
-int xMouse;
-int yMouse;
 
 void drawRect(float x, float y, float weight, float height, int r, int g, int b) {
 	glColor3ub(r, g, b);
@@ -30,9 +30,15 @@ void drawRect(float x, float y, float weight, float height, int r, int g, int b)
 	//glutSwapBuffers();
 }
 void mouse(int button, int state, int x, int y){
-	but = button;
-	if(button != 0){
-		//matrix[x][y(tratar)].getcores
+	if(round == 0){
+		break;
+	}
+	else{
+		but = button;
+		//int yGl = realiza a inversão 
+		if(button != 0){
+			//matrix[x][y(tratar)].getcores
+		}
 	}
  //faz alguma coisa dado que algum botão (button) foi pressionado,
  //um estado do botão (state) e a posição de tela (x,y) que foi clicada.
