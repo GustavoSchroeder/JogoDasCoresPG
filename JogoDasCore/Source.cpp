@@ -11,12 +11,12 @@
 const int x = 32;
 const int y = 32;
 
-
 using namespace std; //para dizer que não precisa colocar namespace na frente do objeto criado por ela
 
 Retangulo matrix[32][32];
 int round = 3;
 int but = 0;
+int resultadoC = 0;
 
 void drawRect(float x, float y, float weight, float height, int r, int g, int b) {
 	glColor3ub(r, g, b);
@@ -29,6 +29,12 @@ void drawRect(float x, float y, float weight, float height, int r, int g, int b)
 	glEnd();
 	//glutSwapBuffers();
 }
+
+float calcula(float r1, float g1, float b1, float r2, float g2, float b2){
+	resultadoC = sqrt(pow(r1-r2, 2.0) + pow(g1-g2, 2.0) + pow(b1-b2, 2.0));
+	return resultadoC;
+}
+
 void mouse(int button, int state, int x, int y) {
 	if (round == 0) {
 		while (true) {
@@ -59,7 +65,18 @@ void mouse(int button, int state, int x, int y) {
 	//um estado do botão (state) e a posição de tela (x,y) que foi clicada.
 	//Não é coordenada do OpenGL, portanto, devemos converter o
 	//clique de tela em coordenada do OpenGL. Dica: y é invertido.
+	float red = matrix[xx][yy].getRed();
+	float green = matrix[xx][yy].getGreen()();
+	float blue = matrix[xx][yy].getBlue();
+	for(int i = 0; i<32; i++){
+		for (int j = 0; j<32; j++){
+			if(calcula(red, green, blue, matrix[i][j].getRed(), matrix[i][j].getGreen(), matrix[i][j].getBlue()) == 50){
+			//50 como exemplo, ver qual valor seria o correto
+				matrix[i][j].setVisivel(false);	
+			}
+		}
 	}
+    }
 }
 
 void reshape(int w, int h) {
