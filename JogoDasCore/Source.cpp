@@ -20,7 +20,10 @@ int resultadoC = 0;
 
 void checkRetangulo(int x, int y){
 	if(matrix[x][y] == false){
-	//	matrix[x][y]
+	matrix[x][y].setRed(0);
+	matrix[x][y].setGreen(0);
+	matrix[x][y].setBlue(0);
+	glutPostRedisplay();
 	}
 }
 
