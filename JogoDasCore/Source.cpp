@@ -18,6 +18,12 @@ int round = 3;
 int but = 0;
 int resultadoC = 0;
 
+void checkRetangulo(int x, int y){
+	if(matrix[x][y] == false){
+	//	matrix[x][y]
+	}
+}
+
 void drawRect(float x, float y, float weight, float height, int r, int g, int b) {
 	glColor3ub(r, g, b);
 	printf("Drawing...");
