@@ -25,26 +25,42 @@ void drawRect(float x, float y, float weight, float height, int r, int g, int b)
 	glVertex2f(x + weight, y - height);
 	glVertex2f(x + 2 + weight, y - height);
 	glVertex2f(x + 2 + weight, y - 2 - height);
-	glVertex2f(x + weight, y -2 - height);
+	glVertex2f(x + weight, y - 2 - height);
 	glEnd();
 	//glutSwapBuffers();
 }
-void mouse(int button, int state, int x, int y){
-	if(round == 0){
-		break;
-	}
-	else{
-		but = button;
-		//int yGl = realiza a inversão 
-		if(button != 0){
-			//matrix[x][y(tratar)].getcores
+void mouse(int button, int state, int x, int y) {
+	if (round == 0) {
+		while (true) {
+			break;
 		}
 	}
- //faz alguma coisa dado que algum botão (button) foi pressionado,
- //um estado do botão (state) e a posição de tela (x,y) que foi clicada.
- //Não é coordenada do OpenGL, portanto, devemos converter o
- //clique de tela em coordenada do OpenGL. Dica: y é invertido.
+	else {
+		but = button;
+		// width é a largura da janela em pixels (ver glViewport)
+		float xx = x / (float)800; // normaliza click: xx = [0..1)
+									 // transformar xx em coordenadas da janela OpenGL:
+									 // xi é a coordenada inicial da janela e w = xf - xi (largura da janela)
+									 // Veja as definições de janela no comando glOrtho
+		xx = -32 + xx * (32 - (-32)); // xx está em coordenadas do OpenGL (xx=[xi..xf));
+
+						  // para o y temos que considerar que o sistema OpenGL o y cresce para cima
+						  // e no da tela (que veio o click) o y cresce para baixo. Então, devemos
+						  // primeiro inverter o y e depois convertê-lo para janela OpenGL
+						  // height é a altura da janela em pixels (ver glViewport)
+		y = 500 - y;
+		float yy = y / (float)500; // normaliza click: yy = [0..1)
+									  // transformar xx em coordenadas da janela OpenGL:
+									  // xi é a coordenada inicial da janela e h = yf - yi (altura da janela)
+									  // Veja as definições de janela no comando glOrtho
+		yy = -32 + yy * (32 - (-32)); // yy está em coordenadas do OpenGL (yy=[yi..yf))
+	//faz alguma coisa dado que algum botão (button) foi pressionado,
+	//um estado do botão (state) e a posição de tela (x,y) que foi clicada.
+	//Não é coordenada do OpenGL, portanto, devemos converter o
+	//clique de tela em coordenada do OpenGL. Dica: y é invertido.
+	}
 }
+
 void reshape(int w, int h) {
 	glViewport(0, 0, w, h);
 }
@@ -55,11 +71,11 @@ void display(void) {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	for (int i = 0; i < x; i++) {
 		xx = 0; // volta para o 0, para começar nova linha
-		for (int j = 0; j < y; j++){
-		int r = matrix[i][j].getRed();
-		int g = matrix[i][j].getGreen();
-		int b = matrix[i][j].getBlue();
-			drawRect(-32, 32,  xx,  yy, r, g, b);
+		for (int j = 0; j < y; j++) {
+			int r = matrix[i][j].getRed();
+			int g = matrix[i][j].getGreen();
+			int b = matrix[i][j].getBlue();
+			drawRect(-32, 32, xx, yy, r, g, b);
 			xx += 2;
 		}
 		yy += 2;
