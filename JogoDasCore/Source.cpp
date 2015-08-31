@@ -36,6 +36,7 @@ void mouse(int button, int state, int x, int y) {
 		}
 	}
 	else {
+		round--;
 		but = button;
 		// width é a largura da janela em pixels (ver glViewport)
 		float xx = x / (float)800; // normaliza click: xx = [0..1)
