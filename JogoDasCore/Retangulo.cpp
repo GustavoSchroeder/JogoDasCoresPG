@@ -17,7 +17,23 @@ void Retangulo::iniciaRetangulo(bool v, int r, int g, int b) {
 	bool Retangulo::isVisivel() {
 		return visivel;
 	}
-
+	
+	void Retangulo::setVisivel(bool v) {
+		visivel = v;
+	}
+	
+	void Retangulo::setRed(int r) {
+		red = r;
+	}
+	
+	void Retangulo::setGreen(int g) {
+		gree = g;
+	}
+	
+	void Retangulo::setBlue(int b) {
+		blue = b;
+	}
+	
 	int Retangulo::getRed() {
 		return red;
 	}
