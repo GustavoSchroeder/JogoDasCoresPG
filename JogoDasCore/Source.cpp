@@ -8,15 +8,19 @@
 #include <cstdio>
 #include "Retangulo.h"
 
-const int x = 32;
-const int y = 32;
+const int X = 32;
+const int Y = 32;
 
 using namespace std; //para dizer que não precisa colocar namespace na frente do objeto criado por ela
 
-Retangulo matrix[32][32];
-int round = 3;
-int but = 0;
-int resultadoC = 0;
+Retangulo matrix[X][Y];
+int rPrimeira;
+int gPrimeira;
+int bPrimeira;
+int percentual = 8;
+int pontos = 0;
+int tentativas = 0;
+int maxTentativas = 32;
 
 void checkRetangulo(int x, int y){
 	if(matrix[x][y] == false){
@@ -96,19 +100,65 @@ void display(void) {
 	float xx = 2;  //x inicial da tela
 	float yy = 2; // y inicial da tela
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	for (int i = 0; i < x; i++) {
+	for (int i = 0; i < X; i++) {
 		xx = 0; // volta para o 0, para começar nova linha
-		for (int j = 0; j < y; j++) {
+		for (int j = 0; j < Y; j++) {
 			int r = matrix[i][j].getRed();
 			int g = matrix[i][j].getGreen();
 			int b = matrix[i][j].getBlue();
-			drawRect(-32, 32, xx, yy, r, g, b);
+			bool v = ret[i][j].isVisivel();
+			if (v == true){
+				glColor3f(r, g, b);
+			}
+			else{
+				glColor3f(1, 1, 1);
+			}
+			drawRect(-34, 34, xx, yy, r, g, b);
 			xx += 2;
 		}
 		yy += 2;
 	}
 	glutSwapBuffers();
 	//glFlush();
+}
+
+void verificaCores(int x, int y){
+
+	int iT = y / 18.75;
+	int jT = x / 25;
+	if (ret[iT][jT].isVisivel() == true) {
+		printf("Posicao do array: ret[%d][%d]\n", iT, jT);
+
+		rPrimeira = ret[iT][jT].getRed();
+		gPrimeira = ret[iT][jT].getGreen();
+		bPrimeira = ret[iT][jT].getBlue();
+
+		for (int i = 0; i < X; i++){
+			for (int j = 0; j < Y; j++){
+				int rSegunda = ret[i][j].getRed();
+				int gSegunda = ret[i][j].getGreen();
+				int bSegunda = ret[i][j].getBlue();
+
+				double raiz = (rPrimeira - rSegunda) * (rPrimeira - rSegunda);
+				raiz += (gPrimeira - gSegunda) * (gPrimeira - gSegunda);
+				raiz += (bPrimeira - bSegunda) * (bPrimeira - bSegunda);
+
+				raiz = sqrt(raiz);
+
+				double distancia = (percentual * 441.67) / 100;
+
+				if (raiz < distancia){
+					ret[i][j].setVisivel(false);
+					pontos += 1;
+				}
+			}
+		}
+		glutPostRedisplay();
+	}
+	else{
+		printf("Retangulo clicado nao esta visivel!");
+		tentativas -= 1;
+	}
 }
 void init(void) {
 	glClearColor(0.0, 0.0, 0.0, 0.0);
