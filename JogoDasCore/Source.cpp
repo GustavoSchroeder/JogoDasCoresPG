@@ -49,47 +49,11 @@ float calcula(float r1, float g1, float b1, float r2, float g2, float b2){
 }
 
 void mouse(int button, int state, int x, int y) {
-	if (round == 0) {
-		while (true) {
-			break;
-		}
+if (button == 0 && state == 0 && tentativas < maxTentativas){
+		verificaCores(x, y);
+		tentativas += 1;
+		printf("Pontos: %d\n", pontos);
 	}
-	else {
-		round--;
-		but = button;
-		// width é a largura da janela em pixels (ver glViewport)
-		float xx = x / (float)800; // normaliza click: xx = [0..1)
-									 // transformar xx em coordenadas da janela OpenGL:
-									 // xi é a coordenada inicial da janela e w = xf - xi (largura da janela)
-									 // Veja as definições de janela no comando glOrtho
-		xx = -32 + xx * (32 - (-32)); // xx está em coordenadas do OpenGL (xx=[xi..xf));
-
-						  // para o y temos que considerar que o sistema OpenGL o y cresce para cima
-						  // e no da tela (que veio o click) o y cresce para baixo. Então, devemos
-						  // primeiro inverter o y e depois convertê-lo para janela OpenGL
-						  // height é a altura da janela em pixels (ver glViewport)
-		y = 500 - y;
-		float yy = y / (float)500; // normaliza click: yy = [0..1)
-									  // transformar xx em coordenadas da janela OpenGL:
-									  // xi é a coordenada inicial da janela e h = yf - yi (altura da janela)
-									  // Veja as definições de janela no comando glOrtho
-		yy = -32 + yy * (32 - (-32)); // yy está em coordenadas do OpenGL (yy=[yi..yf))
-	//faz alguma coisa dado que algum botão (button) foi pressionado,
-	//um estado do botão (state) e a posição de tela (x,y) que foi clicada.
-	//Não é coordenada do OpenGL, portanto, devemos converter o
-	//clique de tela em coordenada do OpenGL. Dica: y é invertido.
-	float red = matrix[xx][yy].getRed();
-	float green = matrix[xx][yy].getGreen()();
-	float blue = matrix[xx][yy].getBlue();
-	for(int i = 0; i<32; i++){
-		for (int j = 0; j<32; j++){
-			if(calcula(red, green, blue, matrix[i][j].getRed(), matrix[i][j].getGreen(), matrix[i][j].getBlue()) == 50){
-			//50 como exemplo, ver qual valor seria o correto
-				matrix[i][j].setVisivel(false);	
-			}
-		}
-	}
-    }
 }
 
 void reshape(int w, int h) {
